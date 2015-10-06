@@ -66,4 +66,3 @@ function I = min_filter(image, a)
     fun = @(x) min(x(:));
     I = nlfilter(image, [a,a], fun);
 end
-
