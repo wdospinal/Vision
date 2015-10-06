@@ -1,0 +1,15 @@
+#Visualizar los histogramas de cada canal
+
+R = img3(:,:,1);
+G = img3(:,:,2);
+B = img3(:,:,3);
+[yR, x] = imhist (R);
+[yG, x] = imhist (G);
+[yB, x] = imhist (B);
+plot(x, yR, 'Red', x, yG, 'Green', x, yB, 'Blue');
+
+#leer varios archivos rapido
+
+images = uint8(zeros(240,320,3,100));
+...
+for i=1:100; images(:,:,:,i) = imread(sprintf('highway/in%06d.jpg',i*2)); end;
