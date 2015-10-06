@@ -50,8 +50,9 @@ end
 
 
 function I = log_filter(image, hsize,sigma)
-    h = fspecial ('log', hsize, sigma);
-    I = imfilter(image, h, 'symmetric');
+    h = fspecial ('log', [hsize hsize], sigma);
+    tmp = imfilter(image, h, 'symmetric');
+    I = mat2gray(tmp);
 end
 
 function I = median_filter(image, a)

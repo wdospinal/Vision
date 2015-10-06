@@ -13,8 +13,27 @@ image = imread('test.jpg');
 %I = handler.linear_transformation(R,2,20);
 
 %prueba filtro promedio
+%---------------------------
 %I = handler.average_filter(R, 3, 3);
-%imshow(I);
+
+%prueba filtro gaussioano
+%---------------------------
+%I = handler.gaussian_filter(R, 5, 3);
+
+%prueba log filter
+%---------------------------
+%I = handler.log_filter(R, 5, 3);
+
+%prueba media filter
+%---------------------------
+%I = handler.median_filter(R, 10);
+
+%prueba max_filter
+%---------------------------
+%I = handler.max_filter(R, 5);
+
+%prueba min_filter
+%---------------------------
+%I = handler.min_filter(R, 5);
 
 imshow(I);figure,imhist(I);
-%imhist(I); figure, imhist(I2);
