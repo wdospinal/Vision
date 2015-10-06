@@ -2,9 +2,15 @@ function F = functions_helper
     F.get_rgb_channels = @get_rgb_channels;
     F.linear_transformation = @linear_transformation;
     F.histogram_expansion = @histogram_expansion;
+    F.averange_filter = @averange_filter;
+    F.gaussian_filter = @gaussian_filter;
+    F.log_filter = @log_filter;
+    F.median_filter = @median_filter;
+    F.max_filter = @max_filter;
+    F.min_filter = @min_filter;
 end
 
-function [R G B] = get_rgb_channels(image_RGB)
+function [R, G, B] = get_rgb_channels(image_RGB)
     R = image_RGB(:, :, 1);
     G = image_RGB(:, :, 2);
     B = image_RGB(:, :, 3);
@@ -31,33 +37,33 @@ function I = histogram_expansion(varargin)
     I = imadjust(image, [low high], []);
 end
 
-function I = averange_filter(image ,j , k)
-    h = ones(j,k)/(j*k);
+function I = averange_filter(image, j, k)
+    h = ones(j, k)/(j*k);
     I = filter2(h, image);
-end
+end 
 
 function I = gaussian_filter(image, hsize,sigma)
-    h =fspecial ('gaussian', hsize, sigma)
+    h = fspecial ('gaussian', hsize, sigma);
     I = imfilter(image, h, 'replicate');
 end
 
 
 function I = log_filter(image, hsize,sigma)
-    h =fspecial ('log', hsize, sigma);
+    h = fspecial ('log', hsize, sigma);
     I = imfilter(image, h, 'symmetric');
 end
 
 function I = median_filter(image, a)
-    G = medfilt2(I, [a,a]);
+    I = medfilt2(image, [a, a]);
 end
 
 function I = max_filter(image, a)
     fun = @(x) max(x(:));
-    G = nlfilter(I,[a,a],fun);
+    I = nlfilter(image,[a,a],fun);
 end
 
-function I = min_filter(image ,a)
+function I = min_filter(image, a)
     fun = @(x) min(x(:));
-    G = nlfilter(I,[a,a],fun);
+    I = nlfilter(image, [a,a], fun);
 end
 
