@@ -1,0 +1,5 @@
+handler = functions_helper();
+image = imread('test.jpg');
+[R G B] = handler.get_rgb_channels(image);
+I = handler.histogram(R);
+I2 = imadjust(R)
