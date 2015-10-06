@@ -26,4 +26,27 @@ function I = averange_filter(image ,j , k)
     I = filter2(h, image);
 end
 
-fun
+function I = gaussian_filter(image, hsize,sigma)
+    h =fspecial ('gaussian', hsize, sigma)
+    I = imfilter(image, h, 'replicate');
+end
+
+
+function I = log_filter(image, hsize,sigma)
+    h =fspecial ('log', hsize, sigma);
+    I = imfilter(image, h, 'symmetric');
+end
+
+function I = median_filter(image, a)
+    G = medfilt2(I, [a,a]);
+end
+
+function I = max_filter(image, a)
+    fun = @(x) max(x(:));
+    G = nlfilter(I,[a,a],fun);
+end
+
+function I = min_filter(image ,a)
+    fun = @(x) min(x(:));
+    G = nlfilter(I,[a,a],fun);
+end
