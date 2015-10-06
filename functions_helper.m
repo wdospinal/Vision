@@ -18,7 +18,7 @@ function I = histogram_expansion(varargin)
             I = imadjust(I)
         case 2
             I = imadjust(I)
-        
+
 end
 
 function I = averange_filter(image ,j , k)
@@ -38,7 +38,7 @@ function I = log_filter(image, hsize,sigma)
 end
 
 function I = median_filter(image, a)
-    G = medfilt2(I, [a,a]);
+    G = medfilt2(I, [a,a],'symmetric');
 end
 
 function I = max_filter(image, a)
