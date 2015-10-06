@@ -6,6 +6,14 @@ Filtros que ocupan.
 
 #----------------------------------------------
 
+Ver los canales R G B
+
+R = img (:, :, 1);
+G = img (:, :, 2);
+B = img (:, :, 3);
+
+#----------------------------------------------
+
 Trasformacion lineal
 
 function G = transformacionLineal(I, a, b)
@@ -16,7 +24,7 @@ Expansion del histograma de una imagen
 
 G = imadjust(I);
 
-G = imadjust(I, [low_in; high_in], [low_out; high_out]);
+G = imadjust(I, [low_in; high_in], [low_out; high_out);
 
 #----------------------------------------------
 
@@ -83,13 +91,3 @@ imshow(mat2gray(M2), []);
 imshow(mat2gray(M2),[]); colormap(jet); colorbar;
 
 #----------------------------------------------
-
-Ver los canales R G B
-
-R = img (:, :, 1);
-G = img (:, :, 2);
-B = img (:, :, 3);
-
-#----------------------------------------------
-
-
