@@ -2,7 +2,7 @@ function F = functions_helper
     F.get_rgb_channels = @get_rgb_channels;
     F.linear_transformation = @linear_transformation;
     F.histogram_expansion = @histogram_expansion;
-    F.averange_filter = @average_filter;
+    F.average_filter = @average_filter;
     F.gaussian_filter = @gaussian_filter;
     F.log_filter = @log_filter;
     F.median_filter = @median_filter;
@@ -33,15 +33,15 @@ function I = histogram_expansion(varargin)
         otherwise
             error('Unexpected input');
     end
-    
+
     I = imadjust(image, [low high], []);
 end
 
 function I = average_filter(image, j, k)
     h = ones(j, k)/(j*k);
-    I2 = filter2(h, image);
-    I = mat2gray(I2)
-end 
+    tmp = filter2(h, image);
+    I = mat2gray(tmp);
+end
 
 function I = gaussian_filter(image, hsize,sigma)
     h = fspecial ('gaussian', hsize, sigma);

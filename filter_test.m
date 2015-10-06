@@ -2,6 +2,7 @@ handler = functions_helper();
 image = imread('test.jpg');
 %image = imread('imagen.JPG');
 [R G B] = handler.get_rgb_channels(image);
+
 %prueba expancion histogram
 %---------------------------
 %I = handler.histogram_expansion(im2double(R));
@@ -12,7 +13,8 @@ image = imread('test.jpg');
 %I = handler.linear_transformation(R,2,20);
 
 %prueba filtro promedio
-I = handler.average_filter(G,2,2);
+%I = handler.average_filter(R, 3, 3);
+%imshow(I);
 
 imshow(I);figure,imhist(I);
 %imhist(I); figure, imhist(I2);
