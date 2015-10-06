@@ -1,0 +1,93 @@
+#----------------------------------------------
+
+En la imagen:
+
+Filtros que ocupan.
+
+#----------------------------------------------
+
+Ver los canales R G B
+
+R = img (:, :, 1);
+G = img (:, :, 2);
+B = img (:, :, 3);
+
+#----------------------------------------------
+
+Trasformacion lineal
+
+function G = transformacionLineal(I, a, b)
+
+#----------------------------------------------
+
+Expansion del histograma de una imagen
+
+G = imadjust(I);
+
+G = imadjust(I, [low_in; high_in], [low_out; high_out);
+
+#----------------------------------------------
+
+Ecualizar el histograma de una imagne
+
+J = histeq(I,n)
+
+J = adapthisteq(I)
+
+#----------------------------------------------
+
+Filtro promedio
+
+h = ones(3,3)/9;
+I2 = filter2(h, img);
+
+#----------------------------------------------
+
+Filtro gaussiano
+
+h =fspecial ('gaussian', hsize, sigma)
+I2 = imfilter(img, h, 'replicate');
+
+#----------------------------------------------
+
+FIltro LOG
+
+h =fspecial ('log', hsize, sigma);
+I2 = imfilter(img, h, 'symmetric');
+
+#----------------------------------------------
+
+Filtro Mediana
+
+G = medfilt2(I, [3,3]);
+
+#----------------------------------------------
+
+Filtro maximo y minimo
+
+fun = @(x) max(x(:));
+G = nlfilter(I,[3,3],fun);
+
+#----------------------------------------------
+
+Espacios de Color
+
+rgb2ntsc : Convierte de RGB a YIQ
+rgb2hsv : Convierte de RGB a HSV
+rgb2xyz : Convierte de RGB a XYZ de CIE-1931
+rgb2lab : Convierte de RGB a L*a*b* de CIE-1976
+rgb2ycbcr : Convierte de RGB al espacio YCbCr
+
+#----------------------------------------------
+
+Transformada de Fourier
+
+img = imread(‘imagen.jpg’);
+TF = fft2(img);
+TF2 = fftshift(TF);
+M = abs(TF2);
+M2 = log(1+M);
+imshow(mat2gray(M2), []);
+imshow(mat2gray(M2),[]); colormap(jet); colorbar;
+
+#----------------------------------------------
