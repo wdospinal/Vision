@@ -1,11 +1,11 @@
 handler = functions_helper();
-image = imread('test.jpg');
-%image = imread('imagen.JPG');
+%image = imread('imagen2.jpg');
+image = imread('imagen2.JPG');
 [R G B] = handler.get_rgb_channels(image);
 
 %prueba expancion histogram
 %---------------------------
-%I = handler.histogram_expansion(im2double(R));
+I = handler.histogram_expansion(im2double(R));
 %I2 = imadjust(im2double(R));
 
 %prueba linear_transformation
@@ -36,4 +36,10 @@ image = imread('test.jpg');
 %---------------------------
 %I = handler.min_filter(R, 5);
 
-imshow(I);figure,imhist(I);
+G (G > 135) = 255
+G (G <=135) = 0
+
+imshow(G);figure,imhist(G);
+
+
+%figure, imshow(R),figure,imshow(G),figure,imshow(B)
