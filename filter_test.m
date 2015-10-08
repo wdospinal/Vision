@@ -1,5 +1,5 @@
 handler = functions_helper();
-img = imread('..\Fotos\Recortadas\IMG_2148.JPG');
+img = imread('/home/android/Work/Vision/Fotos/Recortadas/IMG_2148.jpg');
 % [R, G, B] = handler.get_rgb_channels(img);
 
 
