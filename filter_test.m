@@ -1,5 +1,5 @@
 handler = functions_helper();
-img = imread('..\Fotos\Recortadas\IMG_2172.jpg');
+img = imread('..\Fotos\Recortadas\IMG_2150.jpg');
 % [R, G, B] = handler.get_rgb_channels(img);
 
 %%prueba expancion histogram
@@ -36,29 +36,36 @@ img = imread('..\Fotos\Recortadas\IMG_2172.jpg');
 %I = handler.min_filter(R, 5);
 
 %%  Muestra todos los canales de la imagen para ver cual es mejor
-img_yiq = rgb2ntsc(img);
-img_hsv = rgb2hsv(img);
-img_xyz = rgb2xyz(img);
-img_lab = rgb2lab(img);
-img_ycbcr = rgb2ycbcr(img);
+% img_yiq = rgb2ntsc(img);
+% img_hsv = rgb2hsv(img);
+% img_xyz = rgb2xyz(img);
+% img_lab = rgb2lab(img);
+% img_ycbcr = rgb2ycbcr(img);
 
 
-img_array = {img, img_yiq, img_hsv, img_xyz, img_lab, img_ycbcr};
-name_array = {'RGB', 'YIQ', 'HSV', 'XYZ', 'LAB', 'YCBCR'};
+% img_array = {img, img_yiq, img_hsv, img_xyz, img_lab, img_ycbcr};
+% name_array = {'RGB', 'YIQ', 'HSV', 'XYZ', 'LAB', 'YCBCR'};
+% 
+% size = length(img_array);
+% for i = 1:size
+%    [R1, G1, B1] = handler.get_rgb_channels(img_array{i});
+%    subplot (1, 3, 1); imshow(R1); title(strcat('Rojo ', name_array(i)))
+%    subplot (1, 3, 2); imshow(G1); title(strcat('Verde ', name_array(i)))
+%    subplot (1, 3, 3); imshow(B1); title(strcat('Azul ', name_array(i)))
+%    if i < size
+%        figure
+%    end
+% end
 
-size = length(img_array);
-for i = 1:size
-   [R1, G1, B1] = handler.get_rgb_channels(img_array{i});
-   subplot (1, 3, 1); imshow(R1); title(strcat('Rojo ', name_array(i)))
-   subplot (1, 3, 2); imshow(G1); title(strcat('Verde ', name_array(i)))
-   subplot (1, 3, 3); imshow(B1); title(strcat('Azul ', name_array(i)))
-   if i < size
-       figure
-   end
-end
+% Sacando imagenes para el documento
+% [R, G, B] = handler.get_rgb_channels(img_hsv);
+% [R1, G1, B1] = handler.get_rgb_channels(img_ycbcr);
+% imshow(G);
+% figure, imshow(B1);
 
-
-
+I = handler.histogram_three_channels(img);
+imshow(I);
+figure, handler.histogram_rgb(I);
 
 
 

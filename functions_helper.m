@@ -8,6 +8,9 @@ function F = functions_helper
     F.median_filter = @median_filter;
     F.max_filter = @max_filter;
     F.min_filter = @min_filter;
+    F.transf_gamma = @transf_gamma;
+    F.histogram_rgb = @histogram_rgb;
+    F.histogram_three_channels = @histogram_three_channels;
 end
 
 function [R, G, B] = get_rgb_channels(image_RGB)
@@ -68,8 +71,27 @@ function I = min_filter(image, a)
     I = nlfilter(image, [a,a], fun);
 end
 
-function I = adjust_filter(image, a,b)
+function I = adjust_filter(image, a, b)
     I (image < a) = 0;
     I (image > b) = 255;
 end
 
+function I = transf_gamma(image, a, gamma)
+    I = a*image.^gamma
+end
+
+function histogram_rgb(image)
+    [R, G, B] = get_rgb_channels(image);
+    [yR, r] = imhist (R);
+    [yG, g] = imhist (G);
+    [yB, b] = imhist (B);
+    plot(r, yR, 'Red', g, yG, 'Green', b, yB, 'Blue');
+end
+
+function I = histogram_three_channels(image)
+    [R, G, B] = get_rgb_channels(image);
+    R = histeq(R);
+    G = histeq(G);
+    B = histeq(B);
+    I = cat(3, R, G, B);
+end
