@@ -57,15 +57,7 @@ img = imread('..\Fotos\Recortadas\IMG_2150.jpg');
 %    end
 % end
 
-% Sacando imagenes para el documento
-% [R, G, B] = handler.get_rgb_channels(img_hsv);
-% [R1, G1, B1] = handler.get_rgb_channels(img_ycbcr);
-% imshow(G);
-% figure, imshow(B1);
 
-I = handler.histogram_three_channels(img);
-imshow(I);
-figure, handler.histogram_rgb(I);
 
 
 
