@@ -8,16 +8,30 @@ img = imread('..\Fotos\Recortadas\IMG_2148.JPG');
 
 % Prueba linear_transformation
 %I = handler.linear_transformation(R,2,20);
-%imshow(I);
 
-% Prueba filtro promedio
+%prueba filtro promedio
+%---------------------------
 %I = handler.average_filter(R, 3, 3);
-%imshow(I);figure,imhist(I);
-%imhist(I); figure, imhist(I2);
 
-% Prueba filtro LOG
-% I = handler.log_filter(image, 5, 0.5);
-% imshow(I);
+%prueba filtro gaussioano
+%---------------------------
+%I = handler.gaussian_filter(R, 5, 3);
+
+%prueba log filter
+%---------------------------
+%I = handler.log_filter(R, 5, 3);
+
+%prueba media filter
+%---------------------------
+%I = handler.median_filter(R, 150);
+
+%prueba max_filter
+%---------------------------
+%I = handler.max_filter(R, 5);
+
+%prueba min_filter
+%---------------------------
+%I = handler.min_filter(R, 5);
 
 img_yiq = rgb2ntsc(img);
 img_hsv = rgb2hsv(img);
@@ -38,6 +52,4 @@ for i = 1:size
         figure
     end
 end
-
-
 

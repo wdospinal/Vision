@@ -13,3 +13,6 @@ plot(x, yR, 'Red', x, yG, 'Green', x, yB, 'Blue');
 images = uint8(zeros(240,320,3,100));
 ...
 for i=1:100; images(:,:,:,i) = imread(sprintf('highway/in%06d.jpg',i*2)); end;
+
+
+Analisis de espacio de color, con mas de RGB
