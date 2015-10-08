@@ -1,7 +1,7 @@
 handler = functions_helper();
-%image = imread('imagen2.jpg');
-image = imread('imagen3.JPG');
-[R G B] = handler.get_rgb_channels(image);
+img = imread('..\Fotos\Recortadas\IMG_2148.JPG');
+% [R, G, B] = handler.get_rgb_channels(img);
+
 
 %%prueba expancion histogram
 %---------------------------
@@ -36,41 +36,23 @@ image = imread('imagen3.JPG');
 %---------------------------
 %I = handler.min_filter(R, 5);
 
-%%mostrar todos los canales RGB
-%---------------------------
-%figure, imshow(R),figure,imshow(G),figure,imshow(B)
 
-%%trabajo con imagen a mejorar placa
-%image = imread('imagen3.JPG');
-%[R G B] = handler.get_rgb_channels(image);
-%I = handler.histogram_expansion(im2double(G));
-%I = handler.log_filter(I, 10, 1);
-%I = I + G;
-%I = handler.gaussian_filter(I, 15, 2); 
-%I (I < 93) = 0;
-%I (I > 120) = 0;
-%I = handler.histogram_expansion(im2double(I));
-%imshow(I);%figure,imhist(G);
-%imwrite(I,'imagen_edit.JPG')
-%%#########################################
+img_yiq = rgb2ntsc(img);
+img_hsv = rgb2hsv(img);
+img_xyz = rgb2xyz(img);
+img_lab = rgb2lab(img);
+img_ycbcr = rgb2ycbcr(img);
 
-%image = imread('imagen4.JPG');
-%[R G B] = handler.get_rgb_channels(image);
-%figure, imshow(R),figure,imshow(G),figure,imshow(B)
-%I = handler.histogram_expansion(im2double(G));
-%I = handler.log_filter(I, 20, 1);
-%imwrite(I,'imagen_edit.JPG')
-%imshow(I)
-%#########################################
+img_array = {img, img_yiq, img_hsv, img_xyz, img_lab, img_ycbcr};
+name_array = {'RGB', 'YIQ', 'HSV', 'XYZ', 'LAB', 'YCBCR'};
 
-image = imread('imagen5.JPG');
-[R G B] = handler.get_rgb_channels(image);
-%figure, imshow(R),figure,imshow(G),figure,imshow(B)
-I = handler.histogram_expansion(im2double(R));
-I = handler.max_filter(R, 5);
-%I = handler.median_filter(I, 150);
-imwrite(I,'imagen_edit.JPG')
-imshow(I);figure,imhist(G);
-
-
-
+size = length(img_array);
+for i = 1:size
+    [R1, G1, B1] = handler.get_rgb_channels(img_array{i});
+    subplot (1, 3, 1); imshow(R1); title(strcat('Rojo ', name_array(i)))
+    subplot (1, 3, 2); imshow(G1); title(strcat('Verde ', name_array(i)))
+    subplot (1, 3, 3); imshow(B1); title(strcat('Azul ', name_array(i)))
+    if i < size
+        figure
+    end
+end
