@@ -1,5 +1,6 @@
 handler = functions_helper();
 img = imread('/home/android/Work/Vision/Fotos/Recortadas/IMG_2172.jpg');
+img2= imread('/home/android/Work/Vision/Fotos/Recortadas/IMG_2149.jpg');
 % [R, G, B] = handler.get_rgb_channels(img);
 
 
@@ -37,11 +38,11 @@ img = imread('/home/android/Work/Vision/Fotos/Recortadas/IMG_2172.jpg');
 %I = handler.min_filter(R, 5);
 
 
-img_yiq = rgb2ntsc(img);
-img_hsv = rgb2hsv(img);
-%img_xyz = rgb2xyz(img);
-%img_lab = rgb2lab(img);
-img_ycbcr = rgb2ycbcr(img);
+%img_yiq = rgb2ntsc(img);
+%img_hsv = rgb2hsv(img);
+%%img_xyz = rgb2xyz(img);
+%%img_lab = rgb2lab(img);
+%img_ycbcr = rgb2ycbcr(img);
 
 %   Muestra todos los canales de la imagen para ver cual es mejor
 %img_array = {img, img_yiq, img_hsv, img_ycbcr};
@@ -58,16 +59,25 @@ img_ycbcr = rgb2ycbcr(img);
 %    end
 %end
 
-%     Quitar mas fondo de la imagen  verdeHSV- verdeYIQ 
+%     Mostrar imagenes en las cuales se ve mejor un canal
+
+img = imread('/home/android/Work/Vision/Fotos/Recortadas/IMG_2172.jpg');
+img2= imread('/home/android/Work/Vision/Fotos/Recortadas/IMG_2149.jpg');
+
+img_hsv = rgb2hsv(img);
+img_yiq = rgb2hsv(img2);
+
 [R1, G1, B1] = handler.get_rgb_channels(img_hsv);
 [R1, G2, B1] = handler.get_rgb_channels(img_yiq);
-imshow(G1),figure,imshow(G2)
-I = G1 - G2;
-%%I2 = handler.log_filter(I, 5, 0.5);
-%I(I <  0.5) = 0;
-%I(I >  0.7) = 0;
-%%I = I + I2;
-%imshow(I);
-%%I = handler.histogram_expansion(im2double(I));
-%imwrite(I,'edit.jpg');
+
+imwrite(G1,'espacio_de_color1.jpg');
+imwrite(G2,'espacio_de_color2.jpg');
+
+%I = handler.histogram_expansion(im2double(G1));
+%I = G1 - G2;
+
+
+
+
+
 
