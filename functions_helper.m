@@ -43,14 +43,14 @@ function I = average_filter(image, j, k)
     I = mat2gray(tmp);
 end
 
-function I = gaussian_filter(image, hsize,sigma)
+function I = gaussian_filter(image, hsize, sigma)
     h = fspecial ('gaussian', hsize, sigma);
     I = imfilter(image, h, 'replicate');
 end
 
 
-function I = log_filter(image, hsize,sigma)
-    h = fspecial ('log', hsize, sigma);
+function I = log_filter(image, hsize, sigma)
+    h = fspecial ('log', [hsize hsize], sigma);
     I = imfilter(image, h, 'symmetric');
 end
 
