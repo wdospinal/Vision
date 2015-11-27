@@ -9,8 +9,8 @@ function F = functions_helper
     F.max_filter = @max_filter;
     F.min_filter = @min_filter;
     F.transformation_gamma = @transformation_gamma;
-    F.histogram_rgb = @histogram_rgb;
     F.histogram_three = @histogram_three;
+    F.histogram_eq_three = @histogram_eq_three;
     F.thresholding = @thresholding;
     F.transformation_gamma_three = @transformation_gamma_three;
     F.histogram_expansion_three = @histogram_expansion_three;
@@ -83,8 +83,9 @@ function I = min_filter(image, a)
 end
 
 function I = thresholding(image, a, b)    
-    image(image < a) = 0;
+    image(image < a) = 255;
     image(image > b) = 255;
+    image(image >= a & image <= b) = 0;
     I = image;
 end
 
@@ -92,7 +93,7 @@ function I = transformation_gamma(image, a, gamma)
     I = a*image.^gamma;
 end
 
-function histogram_rgb(image)
+function histogram_three(image)
     [R, G, B] = get_rgb_channels(image);
     [yR, r] = imhist (R);
     [yG, g] = imhist (G);
@@ -100,7 +101,7 @@ function histogram_rgb(image)
     plot(r, yR, 'Red', g, yG, 'Green', b, yB, 'Blue');
 end
 
-function I = histogram_three(image)
+function I = histogram_eq_three(image)
     [R, G, B] = get_rgb_channels(image);
     R = histeq(R);
     G = histeq(G);
