@@ -3,8 +3,8 @@ clear;
 close all;
 
 h = functions_helper();
-img = imread('..\Fotos\Recortadas\1.jpg');
-% [R, G, B] = h.get_rgb_channels(img);
+img = imread('..\Fotos\Recortadas\13.jpg');
+[R1, G1, B1] = h.get_rgb_channels(img);
 
 %%prueba expancion histogram
 %---------------------------
@@ -66,6 +66,7 @@ img_ycbcr = rgb2ycbcr(img);
 % imshow(G);
 % figure, imshow(B);
 w_img = imcomplement(B) - G;
+bw2 = w_img;
 % figure, imshow(w_img);
 w_img = h.histogram_expansion(w_img);
 w_img = h.median_filter(w_img, 5);
@@ -73,7 +74,7 @@ w_img = h.median_filter(w_img, 5);
 umbral = graythresh(w_img);
 bw = im2bw(w_img, umbral);
 
-bw2 = bw;
+% bw2 = bw;
 d_se = strel('disk', 3);
 bw = imerode(bw, d_se);
 
@@ -85,31 +86,43 @@ bw = imfill(bw, 'holes');
 % Probamos la transformada de hough
 % [H,theta,rho] = hough(bw);
 
-regs = regionprops(bw, 'Area', 'BoundingBox', 'Centroid');
-figure, imshow(R);
+regs = regionprops(bw, 'Area', 'BoundingBox', 'Centroid', 'Orientation');
+
 hold on
-area = zeros()
+area = zeros(1, size(regs, 1));
+imgs = cell(1, size(regs, 1));
+c = 1;
 for n=1:size(regs, 1)
     x = regs(n).BoundingBox(1);
     y = regs(n).BoundingBox(2);
     w = regs(n).BoundingBox(3);
     h = regs(n).BoundingBox(4);
-    %     rectangle('Position',regs(n).BoundingBox,'EdgeColor','g','LineWidth',2); 
-    plot(x, y, 'b*');
-%         plot(regs(n).BoundingBox(1) + regs(n).BoundingBox(3), regs(n).BoundingBox(2), 'b*');
-    plot(x + w, y, 'r*');
-    plot(x, y + h, 'g*');
-    plot(x + w, y + h, 'w*');
-%     display(regs(n).Centroid);
-%     display(x+w/2);
-%     display(y+h/2);
-    plot(x+w/2, y+h/2, 'y*');
-    area = [area, regs(n).Area]
+    centroid = regs(n).Centroid;
+%     rectangle('Position',regs(n).BoundingBox,'EdgeColor','g','LineWidth',2); 
+%     plot(x, y, 'b*');
+%     plot(x + w, y, 'r*');
+%     plot(x, y + h, 'g*');
+%     plot(x + w, y + h, 'w*');
+    
+% Centroide aproximadamente en la mitad.
+    e = 10;
+    if abs(centroid(1) - (x+w/2)) <= e && abs(centroid(2) - (y+h/2)) <= e
+        c_img = B(y:floor(y+h), x:floor(x+w));
+        c_img = imrotate(c_img, -regs(n).Orientation, 'bilinear', 'crop');
+        umbral = graythresh(c_img);
+        c_img = im2bw(c_img, umbral);
+        figure, imshow(c_img);        
+        imgs{c} = c_img;
+        c = c + 1;
+    end
+        
+    
+    area(n) = regs(n).Area;
 %     plot(crd(1), crd(2), 'b*');
 end
 hold off
 
-display()
+
 
 % I = h.transformation_gamma_three(img_hsv, 0.85, 1.3);
 % [R, G, B] = h.get_rgb_channels(I);
