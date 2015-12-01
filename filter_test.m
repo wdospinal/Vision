@@ -4,7 +4,7 @@ close all;
 
 %% Captura de imagenes
 
-n =2;
+n =50;
 base_images = cell(1, n);
 for i=1:n
     h = functions_helper();
@@ -66,7 +66,8 @@ for i=1:n
                 c_img = bw2(y:floor(y+h), x:floor(x+w));
                 c_img = imrotate(c_img, -regs(n).Orientation, 'bilinear', 'crop');
                 
-                figure, imshow(c_img);        
+                figure, imshow(c_img);
+                
                 imgs{c} = c_img;
                 c = c + 1;
             end
@@ -81,11 +82,14 @@ for i=1:n
 
 
 %% Resultados
-    s1 = 'results\fil';
-    s2 = num2str(i);
-    s3 = '.jpg';
-    s = strcat(s1,s2);
-    s = strcat(s,s3);
-    imwrite(bw, s);
+l=1
+%     for l=1:size(imgs,2)
+        s1 = 'results\fil';
+        s2 = num2str(i);
+        s3 = '.jpg';
+        s = strcat(s1,s2);
+        s = strcat(s,s3);
+        imwrite(imgs{l}, s);
+%     end
 end
 
