@@ -1,0 +1,35 @@
+Examples filters
+% [R, G, B] = h.get_rgb_channels(img);
+
+%%prueba expancion histogram
+%---------------------------
+% img = h.histogram_expansion(im2double(R));
+%I2 = imadjust(im2double(R));
+
+%%prueba linear_transformation
+%---------------------------
+%I = h.linear_transformation(R,2,20);
+
+%%prueba filtro promedio
+%---------------------------
+%I = h.average_filter(R, 3, 3);
+
+%%prueba filtro gaussioano
+%---------------------------
+%I = h.gaussian_filter(R, 5, 3);
+
+%%prueba log filter
+%---------------------------
+%I = h.log_filter(R, 5, 3);
+
+%%prueba media filter
+%---------------------------
+%I = h.median_filter(R, 150);
+
+%%prueba max_filter
+%---------------------------
+%I = h.max_filter(R, 5);
+
+%%prueba min_filter
+%---------------------------
+%I = h.min_filter(R, 5);
