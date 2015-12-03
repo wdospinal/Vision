@@ -72,4 +72,3 @@ function I = adjust_filter(image, a,b)
     I (image < a) = 0;
     I (image > b) = 255;
 end
-
