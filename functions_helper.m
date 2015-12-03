@@ -8,6 +8,8 @@ function F = functions_helper
     F.median_filter = @median_filter;
     F.max_filter = @max_filter;
     F.min_filter = @min_filter;
+    F.get_features = @get_features;
+    F.create_d = @create_d
 end
 
 function [R, G, B] = get_rgb_channels(image_RGB)
@@ -73,3 +75,34 @@ function I = adjust_filter(image, a,b)
     I (image > b) = 255;
 end
 
+
+function [X, Xn] = get_features(I)
+    J = imdilate(I,ones(3,3));
+    [L, n] = bwlabel(J,4);
+
+    b(1).name = 'basicgeo'; b(1).options.show=1;
+    b(2).name = 'hugeo'; b(2).options.show=1;
+    b(3).name = 'flusser'; b(3).options.show=1;
+    
+    op.b = b;
+    [X,Xn] = Bfx_geo(L, op);
+end
+
+function view_features(d, k, X, Xn)
+    for i = k
+    figure
+    Bio_plotfeatures(X(:,i),d, Xn(i,:))
+    end
+end
+
+function d = create_d(clases)
+    n = size(clases, 1);
+    
+    d = [];
+    for i=1:n
+        nC = clases(i, 1);
+        
+        x = ones(nC, 1) * i;
+        d = vertcat(d, x);       
+    end
+end
