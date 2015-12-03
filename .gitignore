@@ -2,5 +2,6 @@
 *.jpeg
 *.jpg
 results
+images
 Thumbs.db
 desktop.ini
