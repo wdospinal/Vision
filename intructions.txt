@@ -1,0 +1,14 @@
+##########Descripción de archivos contenidos#########################################################
+
+images\						Paquete con imagenes recordas a color
+results\					Paquete con resultados de placas segmentadas
+X-Xn-d_training.mat 		Archivo con Matriz de caracteristicas y matriz columna de las etiquietas
+examples_use_helper.txt 	Archivo con instruciones para el uso de las funciones helper
+filter_first.m 				Archivo con pasos de segmentacion
+filter_last.m  				Archivo con pasos de extraccion de caracteristicas
+functions_helper.m 			Archivo con funciones de ayuda para trabajar con las imagenes
+
+##########       Ejecucion del programa     #########################################################
+
+1. ejecutar filter_first.m, resultados de la ejecucion en results\
+2. ejecutar filer_last.m, resultados visibles por el ususario
