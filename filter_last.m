@@ -12,9 +12,9 @@ end
 letters = ['a', 'd', 'e', 'i', 'n', 'l', 'r', 'v', 'A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '7', '8'];
 
 % Matriz de caracteristicas y matriz columna de las etiquietas
-load('X-Xn-d_training.mat');
+load('data\X-Xn-d_training.mat');
 
-%% Selección de características, Extraemos características
+%% Selecciï¿½n de caracterï¿½sticas, Extraemos caracterï¿½sticas
 
 % Algoritmo KNN con 1 vecino
 op.m = 3;                     % 10 features will be selected
