@@ -1,3 +1,7 @@
-/image-2.4.1/*
-/Fotos/*
-octave-workspace
+*.asv
+*.jpeg
+*.jpg
+results
+images
+Thumbs.db
+desktop.ini
