@@ -1,28 +1,74 @@
 function F = functions_helper
-    F.testing_features = @testing_features;
+    F.get_rgb_channels = @get_rgb_channels;
+    F.linear_transformation = @linear_transformation;
+    F.histogram_expansion = @histogram_expansion;
+    F.average_filter = @average_filter;
+    F.gaussian_filter = @gaussian_filter;
+    F.log_filter = @log_filter;
+    F.median_filter = @median_filter;
+    F.max_filter = @max_filter;
+    F.min_filter = @min_filter;
 end
 
-function [p, ds] = testing_features(img, db, n_classes, k, ideal)
-    img = im2bw(img, graythresh(img));
-    load(db);
+function [R, G, B] = get_rgb_channels(image_RGB)
+    R = image_RGB(:, :, 1);
+    G = image_RGB(:, :, 2);
+    B = image_RGB(:, :, 3);
+end
 
-    % Calculate probability
-    options.p = [0.2034 0.0169 0.1525 0.0169 0.1949 0.1271 0.0169 0.0254 0.0508 0.1441 0.0169 0.0339];
-    op = Bcl_lda(X(:, k), d, options);
-%         Testing p = 1
-%         ds = Bcl_lda(X(:, k), op);
-%         p = Bev_performance(ds, d);
+function I = linear_transformation(image, a, b)
+    I = (image * a) + b;
+end
 
-%         Bio_plotfeatures(X(:,k), d, Xn(k,:));
+function I = histogram_expansion(varargin)
+    switch nargin
+        case 1
+            image = varargin{1};
+            res = stretchlim(image);
+            low = res(1);
+            high = res(2);
+        case 3
+            low = varargin{2};
+            high = varargin{3};
+        otherwise
+            error('Unexpected input');
+    end
 
-    b(1).name = 'basicgeo';  b(1).options.show=1;
-    b(2).name = 'hugeo';  b(2).options.show=1;
-    b(3).name = 'flusser';  b(3).options.show=1;
-    oc.b = b;
+    I = imadjust(image, [low high], []);
+end
 
-    [L2, n2] = bwlabel(img, 8);
-    [XTest, XTn] = Bfx_geo(L2, oc);
+function I = average_filter(image, j, k)
+    h = ones(j, k)/(j*k);
+    tmp = filter2(h, image);
+    I = mat2gray(tmp);
+end
 
-    ds = Bcl_lda(XTest(:, k), op); % Testing
-    p = Bev_performance(ds, ideal);
+function I = gaussian_filter(image, hsize, sigma)
+    h = fspecial ('gaussian', hsize, sigma);
+    I = imfilter(image, h, 'replicate');
+end
+
+
+function I = log_filter(image, hsize, sigma)
+    h = fspecial ('log', [hsize hsize], sigma);
+    I = imfilter(image, h, 'symmetric');
+end
+
+function I = median_filter(image, a)
+    I = medfilt2(image, [a, a]);
+end
+
+function I = max_filter(image, a)
+    fun = @(x) max(x(:));
+    I = nlfilter(image,[a,a],fun);
+end
+
+function I = min_filter(image, a)
+    fun = @(x) min(x(:));
+    I = nlfilter(image, [a,a], fun);
+end
+
+function I = adjust_filter(image, a,b)
+    I (image < a) = 0;
+    I (image > b) = 255;
 end
