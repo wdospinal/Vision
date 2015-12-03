@@ -1,25 +1,21 @@
 clear;
 close all;
 
-% h = functions_helper();
-files = dir('images\*.jpg');
+%% Captura de imagenes
+files = dir('results\*.jpg');
 imgs = cell(1, size(files, 1));
-% for i = 1:size(files, 1)
-for i = 1:10
-    im = imread(strcat('images\', files(i).name));
+for i = 1:size(files, 1)
+    im = imread(strcat('results\', files(i).name));
     imgs{i} = im2bw(im, graythresh(im));
 end
 
 letters = ['a', 'd', 'e', 'i', 'n', 'l', 'r', 'v', 'A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '7', '8'];
-% load('X-Xn-d_training.mat');
-% load('X-Xn-d_training_grandes.mat');
-% load('X-Xn-d_training_grandes_min_2.mat');
-load('X-Xn-d_training_min_2.mat');
 
-% [X, Xn] = Bfs_noposition(X, Xn);
+% Matriz de caracteristicas y matriz columna de las etiquietas
+load('X-Xn-d_training.mat');
 
-%% Selección de características
-% Extraemos características
+%% Selección de características, Extraemos características
+
 % Algoritmo KNN con 1 vecino
 op.m = 3;                     % 10 features will be selected
 op.show = 1;                   % display results
@@ -66,6 +62,7 @@ s = Bfs_sfs(X, d, op);
 
 
 %% CLASIFICADORES
+
 % Entrenamiento
 % Algoritmo KNN con 1 vecino
 o.k = 1;
@@ -110,19 +107,18 @@ oc.b = b;
 results = cell(1, size(imgs, 2));
 
 %% Pruebas
-% for i = 1:size(imgs, 2)
-for i = 1:10
+for i = 1:size(imgs, 2)
     res = '';
     [L2, n2] = bwlabel(imgs{i}, 8);
     [X2, X2n] = Bfx_geo(L2, oc);
-%     ds = Bcl_knn(X2(:, s), opt); % Testing
+     ds = Bcl_knn(X2(:, s), opt); % Testing
 %     ds = Bcl_maha(X2(:, s), opt);
 %     ds = Bcl_qda(X2(:, s), opt);
 %     ds = Bcl_pnn(X2(:, s), opt);
 %     ds = Bcl_nnglm(X2(:, s), opt);
 %     ds = Bcl_adaboost(X2(:, s), opt);
 %     ds = Bcl_svmplus(X2(:, s), opt);
-    ds = Bcl_lda(X2(:, s), opt);
+%     ds = Bcl_lda(X2(:, s), opt);
 
     for j = 1:size(ds, 1)
         res = strcat(res, letters(ds(j)));
@@ -130,8 +126,7 @@ for i = 1:10
     results{i} = res;
 end
 
-% for i = 1:size(imgs, 2)
-for i = 1:10
+for i = 1:size(imgs, 2)
    figure, imshow(imgs{i}); title(results{i});
 end
 % k = [28, 26, 14];
